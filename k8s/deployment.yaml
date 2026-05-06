@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: realtime-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: realtime-app
+  template:
+    metadata:
+      labels:
+        app: realtime-app
+    spec:
+      containers:
+        - name: realtime-app
+          image: realtime-app:latest
+          imagePullPolicy: Never   # 👈 Important
+          ports:
+            - containerPort: 8080
