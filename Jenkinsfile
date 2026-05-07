@@ -18,7 +18,7 @@ pipeline {
 
         stage('Maven build') {
             steps {
-                bat 'mvn clean package'
+                bat 'mvn clean install'
                 echo ' <<< Maven build is completed >>>'
             }
         }
