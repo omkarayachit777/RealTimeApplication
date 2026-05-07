@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    tools {
+        maven 'Maven-4.0.0-rc-5'
+    }
     environment {
         IMAGE_NAME = "realtime-app"
     }
@@ -9,11 +11,11 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/omkarayachit777/RealTimeApplication.git'
+                git 'https://github.com/omkarayachit777/RealTimeApplication'
             }
         }
 
-        stage('Build') {
+        stage('Maven build') {
             steps {
                 sh 'mvn clean package'
             }
@@ -21,14 +23,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t realtime-app .'
-            }
-        }
-
-        stage('Docker Push') {
-            steps {
-                sh 'docker tag realtime-app your-dockerhub/realtime-app:latest'
-                sh 'docker push your-dockerhub/realtime-app:latest'
+                sh 'docker build -t realtime-app:latest .'
             }
         }
 
