@@ -27,7 +27,7 @@ pipeline {
 
         stage('Docker Push') {
             steps {
-                sh 'docker tag realtime-app your-dockerhub/my-app:latest'
+                sh 'docker tag realtime-app your-dockerhub/realtime-app:latest'
                 sh 'docker push your-dockerhub/realtime-app:latest'
             }
         }
