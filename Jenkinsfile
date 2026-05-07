@@ -11,25 +11,29 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/omkarayachit777/RealTimeApplication'
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/omkarayachit777/RealTimeApplication']])
+                echo ' <<< Checkout from git is completed >>>'
             }
         }
 
         stage('Maven build') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
+                echo ' <<< Maven build is completed >>>'
             }
         }
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t realtime-app:latest .'
+                bat 'docker build -t realtime-app:latest .'
+                echo ' <<< Docker build is completed >>>'
             }
         }
 
         stage('Deploy to K8s') {
             steps {
-                sh 'kubectl apply -f k8s/'
+                bat 'kubectl apply -f k8s/'
+                echo ' <<< Deployment to k8s is completed >>>'
             }
         }
     }
